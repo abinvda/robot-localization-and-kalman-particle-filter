@@ -66,7 +66,7 @@ def move(p, motion, p_move):
         q1=[]
         for j in range(len(p[0])):
             q1.append(p_move * p[(i-motion[0]) % len(p)][(j-motion[1]) % len(p[0])] \
-            + (1-p_move) * p[(i-(motion[0]-(motion[0]&1))) % len(p)][(j-(motion[1]-(motion[1]&1))) % len(p[0])]) #AND operator there is just to ensure that we don't subtract motion if it's already zero
+            + (1-p_move) * p[(i-(motion[0]-(motion[0]*1))) % len(p)][(j-(motion[1]-(motion[1]*1))) % len(p[0])]) #AND operator was messing up the negative motion values therefore the product now is used to ensure that we don't subtract motion if it's already zero
         q.append(q1)
     return q
 
