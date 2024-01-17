@@ -1,9 +1,3 @@
-# Fill in the matrices P, F, H, R and I at the bottom
-#
-# This question requires NO CODING, just fill in the 
-# matrices where indicated. Please do not delete or modify
-# any provided code OR comments. Good luck!
-
 from math import *
 
 class matrix:
@@ -179,15 +173,10 @@ dt = 0.1
 x = matrix([[initial_xy[0]], [initial_xy[1]], [0.], [0.]]) # initial state (location and velocity)
 u = matrix([[0.], [0.], [0.], [0.]]) # external motion
 
-#### DO NOT MODIFY ANYTHING ABOVE HERE ####
-#### fill this in, remember to use the matrix() function!: ####
-
 P = matrix([[0., 0., 0., 0.], [0., 0., 0.,0.,], [0., 0.,1000.,0.,], [0.,0.,0.,1000.]]) # initial uncertainty: 0 for positions x and y, 1000 for the two velocities
 F = matrix([[1., 0., 0.1, 0.], [0., 1., 0., 0.1], [0., 0., 1., 0.], [0., 0., 0., 1.]]) # next state function: generalize the 2d version to 4d
 H = matrix([[1., 0., 0., 0.], [0., 1., 0., 0.]]) # measurement function: reflect the fact that we observe x and y but not the two velocities
 R = matrix([[0.1, 0.], [0., 0.1]]) # measurement uncertainty: use 2x2 matrix with 0.1 as main diagonal
 I = matrix([[1., 0., 0., 0.], [0., 1., 0., 0.], [0., 0., 1., 0.], [0., 0., 0., 1.]]) # 4d identity matrix
-
-###### DO NOT MODIFY ANYTHING HERE #######
 
 filter(x, P)

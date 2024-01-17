@@ -1,31 +1,14 @@
 # --------------
 # USER INSTRUCTIONS
 #
-# Now you will put everything together.
-#
 # First make sure that your sense and move functions
-# work as expected for the test cases provided at the
-# bottom of the previous two programming assignments.
-# Once you are satisfied, copy your sense and move
-# definitions into the robot class on this page, BUT
-# now include noise.
+# work as expected.
+# Now, also include noise.
 #
 # A good way to include noise in the sense step is to
 # add Gaussian noise, centered at zero with variance
-# of self.bearing_noise to each bearing. You can do this
-# with the command random.gauss(0, self.bearing_noise)
+# of self.bearing_noise to each bearing.
 #
-# In the move step, you should make sure that your
-# actual steering angle is chosen from a Gaussian
-# distribution of steering angles. This distribution
-# should be centered at the intended steering angle
-# with variance of self.steering_noise.
-#
-# Feel free to use the included set_noise function.
-#
-# Please do not modify anything except where indicated
-# below.
-
 from math import *
 import random
 
@@ -34,7 +17,7 @@ import random
 # some top level parameters
 #
 
-max_steering_angle = pi / 4.0 # You do not need to use this value, but keep in mind the limitations of a real car.
+max_steering_angle = pi / 4.0
 bearing_noise = 0.1 # Noise parameter: should be included in sense function.
 steering_noise = 0.1 # Noise parameter: should be included in move function.
 distance_noise = 5.0 # Noise parameter: should be included in move function.
@@ -49,8 +32,7 @@ tolerance_orientation = 0.25 # Tolerance for orientation.
 # the robot's initial coordinates are somewhere in the square
 # represented by the landmarks.
 #
-# NOTE: Landmark coordinates are given in (y, x) form and NOT
-# in the traditional (x, y) format!
+# NOTE: Landmark coordinates are given in (y, x) form
 
 landmarks  = [[0.0, 100.0], [0.0, 0.0], [100.0, 0.0], [100.0, 100.0]] # position of 4 landmarks in (y, x) format.
 world_size = 100.0 # world is NOT cyclic. Robot is allowed to travel "out of bounds"
@@ -128,12 +110,10 @@ class robot:
         return '[x=%.6s y=%.6s orient=%.6s]' % (str(self.x), str(self.y), 
                                                 str(self.orientation))
     
-    ############# ONLY ADD/MODIFY CODE BELOW HERE ###################
-       
     # --------
     # move: 
     #   
-    def move(self, motion): # Do not change the name of this function
+    def move(self, motion):
         myr = robot()
         myr.length = self.length
         myr.steering_noise = self.steering_noise
@@ -159,20 +139,13 @@ class robot:
             myr.y = (self.y + cos(theta)*R) - cos(new_theta)*R
             
         return myr
-    # copy your code from the previous exercise
-    # and modify it so that it simulates motion noise
-    # according to the noise parameters
-    #           self.steering_noise
-    #           self.distance_noise
 
     # --------
     # sense: 
     #    
-    def sense(self, add_noise = 1): #do not change the name of this function
+    def sense(self, add_noise = 1):
         Z = []
         
-        # ENTER CODE HERE
-        # HINT: You will probably need to use the function atan2()
         for i in range(len(landmarks)):
             lm_x = landmarks[i][1]
             lm_y = landmarks[i][0]
@@ -187,14 +160,8 @@ class robot:
             Z.append(bearing)
             
         return Z
-    # copy your code from the previous exercise
-    # and modify it so that it simulates bearing noise
-    # according to
-    #           self.bearing_noise
 
-    ############## ONLY ADD/MODIFY CODE ABOVE HERE ####################
-
-# --------
+    # --------
 #
 # extract position from a particle set
 # 
@@ -206,8 +173,7 @@ def get_position(p):
     for i in range(len(p)):
         x += p[i].x
         y += p[i].y
-        # orientation is tricky because it is cyclic. By normalizing
-        # around the first particle we are somewhat more robust to
+        # By normalizing around the first particle we are somewhat more robust to
         # the 0=2pi problem
         orientation += (((p[i].orientation - p[0].orientation + pi) % (2.0 * pi)) 
                         + p[0].orientation - pi)
@@ -216,7 +182,6 @@ def get_position(p):
 # --------
 #
 # The following code generates the measurements vector
-# You can use it to develop your solution.
 # 
 
 
@@ -271,7 +236,7 @@ def check_output(final_robot, estimated_position):
 
 
 
-def particle_filter(motions, measurements, N=500): # I know it's tempting, but don't change N!
+def particle_filter(motions, measurements, N=500):
     # --------
     #
     # Make particles
@@ -316,10 +281,6 @@ def particle_filter(motions, measurements, N=500): # I know it's tempting, but d
     
     return get_position(p)
 
-## IMPORTANT: You may uncomment the test cases below to test your code.
-## But when you submit this code, your test cases MUST be commented
-## out.
-##
 ## You can test whether your particle filter works using the
 ## function check_output (see test case 2). We will be using a similar
 ## function. Note: Even for a well-implemented particle filter this
@@ -350,9 +311,6 @@ measurements = [[4.746936, 3.859782, 3.045217, 2.045506],
 
 print particle_filter(motions, measurements)
 
-## 2) You can generate your own test cases by generating
-##    measurements using the generate_ground_truth function.
-##    It will print the robot's last location when calling it.
 ##
 ##
 number_of_iterations = 6

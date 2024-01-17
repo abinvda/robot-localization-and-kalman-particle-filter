@@ -25,9 +25,8 @@
 #        (and the robot remains still) is 1-p_move; the robot will NOT overshoot
 #        its destination in this exercise
 #
-# The function should RETURN (not just show or print) a 2D list (of the same
-# dimensions as colors) that gives the probabilities that the robot occupies
-# each cell in the world.
+# The function returns a 2D list (of the same dimensions as colors) that gives
+# the probabilities that the robot occupies each cell in the world.
 #
 # Compute the probabilities by assuming the robot initially has a uniform
 # probability of being in any cell.
@@ -75,8 +74,7 @@ def localize(colors,measurements,motions,sensor_right,p_move):
     pinit = 1.0 / float(len(colors)) / float(len(colors[0]))
     p = [[pinit for row in range(len(colors[0]))] for col in range(len(colors))]
 
-    # >>> Insert your code here <<<
-    for k in range(len(motions)):
+    ]for k in range(len(motions)):
         p = move(p, motions[k], p_move)
         p = sense(p, colors, measurements[k], sensor_right)
     return p
@@ -100,4 +98,4 @@ colors = [['R','G','G','R','R'],
 measurements = ['G','G','G','G','G']
 motions = [[0,0],[0,1],[1,0],[1,0],[0,1]]
 p = localize(colors,measurements,motions,sensor_right = 0.7, p_move = 0.8)
-show(p) # displays your answer
+show(p) # displays the answer

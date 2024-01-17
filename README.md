@@ -1,2 +1,3 @@
-# AI_Robotics_Udacity
-Course quizes for Udacity course Artificial Intelligence for Robotics
+# Artificial Intelligence for Robotics
+
+This repo contains my solutions for the localization and control problems from the course Artificial Intelligence for Robotics.
